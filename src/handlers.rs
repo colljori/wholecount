@@ -41,12 +41,7 @@ pub async fn get_users(db: web::Data<Pool>) -> Result<HttpResponse, Error> {
         .map_err(|_| HttpResponse::InternalServerError())?)
 }
 
-fn get_all_users(pool: web::Data<Pool>) -> Result<Vec<User>, diesel::result::Error> {
-    let conn = pool.get().unwrap();
-    let items = users.load::<User>(&conn)?;
-    Ok(items)
-}
-
+// Handler for GET /users/{id}
 pub async fn get_user_by_id(
     db: web::Data<Pool>,
     user_id: web::Path<i32>,
@@ -83,6 +78,16 @@ pub async fn delete_user(
     )
 }
 
+
+// PRIVATE SERVICES ------------------------------------------------------------------------------
+//
+
+fn get_all_users(pool: web::Data<Pool>) -> Result<Vec<User>, diesel::result::Error> {
+    let conn = pool.get().unwrap();
+    let items = users.load::<User>(&conn)?;
+    Ok(items)
+}
+
 fn db_get_user_by_id(pool: web::Data<Pool>, user_id: i32) -> Result<User, diesel::result::Error> {
     let conn = pool.get().unwrap();
     users.find(user_id).get_result::<User>(&conn)
@@ -108,7 +113,3 @@ fn delete_single_user(db: web::Data<Pool>, user_id: i32) -> Result<usize, diesel
     let count = delete(users.find(user_id)).execute(&conn)?;
     Ok(count)
 }
-
-
-// PRIVATE SERVICES ------------------------------------------------------------------------------
-//
