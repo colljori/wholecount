@@ -7,8 +7,8 @@
  * this file. If not, please write to: joris.collomb@gmail.com.
  */
 
-//! DEPENDENCIES  ---------------------------------------------------------------------------------
-//!
+// DEPENDENCIES  ---------------------------------------------------------------------------------
+//
 
 use super::models::{NewUser, User};
 use super::schema::users::dsl::*;
@@ -20,8 +20,8 @@ use diesel::dsl::{delete, insert_into};
 use serde::{Deserialize, Serialize};
 use std::vec::Vec;
 
-//! TYPE AND CONSTANT -----------------------------------------------------------------------------
-//!
+// TYPE AND CONSTANT -----------------------------------------------------------------------------
+//
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct InputUser {
@@ -30,8 +30,8 @@ pub struct InputUser {
     pub email: String,
 }
 
-//! PUBLIC SERVICES -------------------------------------------------------------------------------
-//!
+// PUBLIC SERVICES -------------------------------------------------------------------------------
+//
 
 // Handler for GET /users
 pub async fn get_users(db: web::Data<Pool>) -> Result<HttpResponse, Error> {
@@ -110,5 +110,5 @@ fn delete_single_user(db: web::Data<Pool>, user_id: i32) -> Result<usize, diesel
 }
 
 
-//! PRIVATE SERVICES ------------------------------------------------------------------------------
-//!
+// PRIVATE SERVICES ------------------------------------------------------------------------------
+//

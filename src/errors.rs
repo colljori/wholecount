@@ -7,15 +7,15 @@
  * this file. If not, please write to: joris.collomb@gmail.com.
  */
 
-//! DEPENDENCIES  ---------------------------------------------------------------------------------
-//!
+// DEPENDENCIES  ---------------------------------------------------------------------------------
+//
 
 use actix_web::{error::ResponseError, HttpResponse};
 use derive_more::Display;
 
 
-//! TYPE AND CONSTANT -----------------------------------------------------------------------------
-//!
+// TYPE AND CONSTANT -----------------------------------------------------------------------------
+//
 
 #[derive(Debug, Display)]
 pub enum ServiceError {
@@ -29,8 +29,8 @@ pub enum ServiceError {
     JWKSFetchError,
 }
 
-//! PUBLIC SERVICES -------------------------------------------------------------------------------
-//!
+// PUBLIC SERVICES -------------------------------------------------------------------------------
+//
 
 // impl ResponseError trait allows to convert our errors into http responses with appropriate data
 impl ResponseError for ServiceError {
