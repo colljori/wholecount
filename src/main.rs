@@ -43,6 +43,7 @@ pub type Pool = r2d2::Pool<ConnectionManager<PgConnection>>;
 async fn main() -> std::io::Result<()> {
     dotenv::dotenv().ok();
     std::env::set_var("RUST_LOG", "actix_web=debug");
+    let server_port = std::env::var("WHOLECOUNT_PORT").expect("WHOLECOUNT_PORT must be set").parse().expect("can't parse WHOLECOUNT_PORT");
     let database_url = std::env::var("DATABASE_URL").expect("DATABASE_URL must be set");
 
 
@@ -63,7 +64,7 @@ async fn main() -> std::io::Result<()> {
             .route("/users", web::post().to(handlers::add_user))
             .route("/users/{id}", web::delete().to(handlers::delete_user))
     })
-    .bind("127.0.0.1:8081")?
+    .bind(("127.0.0.1", server_port))?
     .run()
     .await
 }
